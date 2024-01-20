@@ -1,14 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getBlockchainWalletAddress } from "@wallet/helpers/wallet.utils"
-import { WalletState } from "@wallet/types/interfaces/wallet-state.interface";
-import { fetchAccountData, fetchAccountTransactions } from "@wallet/store/thunks/featch-account-data.thunk";
+import { getBlockchainKeys } from "@wallet/helpers/wallet.utils";
+import {
+  WalletState
+} from "@wallet/types/interfaces/wallet-state.interface";
+import { apiService } from "@wallet/services/wallet.service";
 
 const initialState: WalletState = {
-  walletAddress: null,
+  walletAddress: '',
   mnemonic: '',
+  keys: { secretKeyHex: null, publicKeyHex: null },
   transactions: [],
   accountData: null,
   error: null,
+  isLoading: false,
 };
 
 const walletSlice = createSlice({
@@ -16,31 +20,32 @@ const walletSlice = createSlice({
   initialState,
   reducers: {
     setMnemonics: (state, action: PayloadAction<string>) => {
+      const keys = getBlockchainKeys(action.payload);
       state.mnemonic = action.payload;
-      state.walletAddress = getBlockchainWalletAddress(action.payload) ?? null;
+      state.walletAddress = keys.publicKey.toAddress().toString();
+      state.keys.publicKeyHex = keys.publicKey.hex();
+      state.keys.secretKeyHex = keys.secretKey.hex();
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAccountData.pending, (state) => {
-      state.error = null;
-    });
-    builder.addCase(fetchAccountData.fulfilled, (state, action) => {
-      state.accountData = action.payload;
-    });
-    builder.addCase(fetchAccountData.rejected, (state, action) => {
-      state.error = action.payload;
-    });
-    builder.addCase(fetchAccountTransactions.pending, (state) => {
-      state.error = null;
-    });
-    builder.addCase(fetchAccountTransactions.fulfilled, (state, action) => {
-      state.transactions = action.payload;
-    });
-    builder.addCase(fetchAccountTransactions.rejected, (state, action) => {
-      state.error = action.payload;
-    });
+    builder
+      .addMatcher(
+        apiService.endpoints.fetchAccountData.matchPending,
+        (state) => {
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        apiService.endpoints.fetchAccountData.matchFulfilled,
+        (state, action) => {
+          state.accountData = action.payload;
+        }
+      );
   },
 });
 
-export const { setMnemonics } = walletSlice.actions;
+export const { setMnemonics, setLoading } = walletSlice.actions;
 export default walletSlice.reducer;
