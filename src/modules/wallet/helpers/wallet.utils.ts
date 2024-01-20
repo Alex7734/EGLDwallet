@@ -1,5 +1,6 @@
 import {Mnemonic} from "@multiversx/sdk-wallet";
 import { IAccountBalance } from "@multiversx/sdk-core/out";
+import { UserPublicKey, UserSecretKey } from "@multiversx/sdk-wallet/out";
 
 export function getBlockchainKeys(userInputMnemonic: string) {
   const mnemonic = Mnemonic.fromString(userInputMnemonic);
@@ -14,13 +15,32 @@ export function getBlockchainKeys(userInputMnemonic: string) {
   }
 }
 
-export function getBlockchainWalletAddress(userInputMnemonic: string) {
-  try {
-    const { publicKey } = getBlockchainKeys(userInputMnemonic);
-    return publicKey.toAddress().toString();
-  } catch (error) {
-    console.error(error);
+function hexToUint8Array(hexString: string) {
+  if (hexString.length % 2 !== 0) {
+    throw new Error("Invalid hex string");
   }
+
+  const arrayBuffer = new Uint8Array(hexString.length / 2);
+
+  for (let i = 0; i < hexString.length; i += 2) {
+    const byteValue = parseInt(hexString.substring(i, i + 2), 16);
+    if (isNaN(byteValue)) {
+      throw new Error("Invalid hex string");
+    }
+    arrayBuffer[i / 2] = byteValue;
+  }
+
+  return arrayBuffer;
+}
+
+function getSecretKeyFromHex(hexString: string) {
+  const uint8Array = hexToUint8Array(hexString);
+  return new UserSecretKey(uint8Array);
+}
+
+function getPublicKeyFromHex(hexString: string) {
+  const uint8Array = hexToUint8Array(hexString);
+  return new UserPublicKey(uint8Array);
 }
 
 export const formatBalance = (balance: IAccountBalance | undefined) => {
@@ -28,4 +48,13 @@ export const formatBalance = (balance: IAccountBalance | undefined) => {
   const divisor = 10**18;
   const formattedBalance = Number(balance) / divisor;
   return formattedBalance.toFixed(2);
+}
+
+export const isValidMnemonicFormat = (mnemonic: string) => {
+  try {
+    Mnemonic.fromString(mnemonic);
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
