@@ -1,0 +1,23 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@screens/*": ["src/screens/*"],
+      "@utils/*": ["src/utils/*"],
+      "@constants/*": ["src/types/constants/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@navigation/*": ["src/navigation/*"],
+      "@components/*": ["src/components/*"],
+      "@store/*": ["src/store/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@wallet/*": ["src/modules/wallet/*"],
+    }
+  }
+}
