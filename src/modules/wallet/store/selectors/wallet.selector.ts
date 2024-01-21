@@ -1,15 +1,19 @@
 import { RootState } from "@store/store";
-import { getBlockchainKeys } from "@wallet/helpers/wallet.utils";
+import { getSecretKeyFromHex } from "@wallet/helpers/wallet.utils";
 import { createSelector } from "@reduxjs/toolkit";
+import { TEST_PASSWORD } from "@constants/api.constants";
+import { UserWallet } from "@multiversx/sdk-wallet/out";
 
-const selectMnemonic = (state: RootState) => state.wallet.mnemonic;
+const selectSecretKeyHex = (state: RootState) => state.wallet.keys.secretKeyHex;
 
-export const selectBlockchainKeys = createSelector(
-  [selectMnemonic],
-  (mnemonic: string) => {
-    if (mnemonic) {
-      return getBlockchainKeys(mnemonic);
-    }
-    return { secretKey: null, publicKey: null };
+export const getUserWallet = createSelector(
+  selectSecretKeyHex,
+  (secretKeyHex) => {
+    if (!secretKeyHex) return null;
+
+    return UserWallet.fromSecretKey({
+      secretKey: getSecretKeyFromHex(secretKeyHex),
+      password: TEST_PASSWORD
+    });
   }
 );

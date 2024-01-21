@@ -1,6 +1,6 @@
 import {Mnemonic} from "@multiversx/sdk-wallet";
-import { IAccountBalance } from "@multiversx/sdk-core/out";
-import { UserPublicKey, UserSecretKey } from "@multiversx/sdk-wallet/out";
+import { IAccountBalance, IAddress } from "@multiversx/sdk-core/out";
+import { UserSecretKey } from "@multiversx/sdk-wallet/out";
 
 export function getBlockchainKeys(userInputMnemonic: string) {
   const mnemonic = Mnemonic.fromString(userInputMnemonic);
@@ -33,14 +33,15 @@ function hexToUint8Array(hexString: string) {
   return arrayBuffer;
 }
 
-function getSecretKeyFromHex(hexString: string) {
+export function getSecretKeyFromHex(hexString: string) {
   const uint8Array = hexToUint8Array(hexString);
   return new UserSecretKey(uint8Array);
 }
 
-function getPublicKeyFromHex(hexString: string) {
-  const uint8Array = hexToUint8Array(hexString);
-  return new UserPublicKey(uint8Array);
+export function stringToIAddress(addressString: string): IAddress {
+  return {
+    bech32: () => addressString
+  };
 }
 
 export const formatBalance = (balance: IAccountBalance | undefined) => {

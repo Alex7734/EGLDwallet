@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputControl matches the snapshot 1`] = `
+<View
+  pointerEvents="auto"
+  style={
+    [
+      {
+        "position": "relative",
+      },
+      {
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "position": "absolute",
+        },
+        {
+          "top": -8,
+        },
+        {
+          "left": 16,
+        },
+        {
+          "zIndex": 40,
+        },
+        {
+          "display": "flex",
+        },
+        {
+          "alignItems": "flex-start",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontSize": 12,
+            "lineHeight": 16,
+          },
+          {
+            "color": "#000",
+          },
+          {
+            "backgroundColor": "#fff",
+          },
+          {
+            "paddingLeft": 8,
+            "paddingRight": 8,
+          },
+        ]
+      }
+    >
+      Test Label
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "display": "flex",
+        },
+        {
+          "flexDirection": "row",
+        },
+        {
+          "alignItems": "center",
+        },
+        {
+          "justifyContent": "space-between",
+        },
+      ]
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholderTextColor="#737374"
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          {
+            "paddingBottom": 12,
+            "paddingTop": 12,
+          },
+          {
+            "paddingLeft": 8,
+            "paddingRight": 8,
+          },
+          {
+            "borderBottomWidth": 1,
+            "borderLeftWidth": 1,
+            "borderRightWidth": 1,
+            "borderTopWidth": 1,
+          },
+          {
+            "borderBottomColor": "#d1d5db",
+            "borderLeftColor": "#d1d5db",
+            "borderRightColor": "#d1d5db",
+            "borderTopColor": "#d1d5db",
+          },
+          {
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+          },
+        ]
+      }
+      testID="test"
+    />
+  </View>
+</View>
+`;
