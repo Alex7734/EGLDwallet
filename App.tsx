@@ -8,7 +8,7 @@ import store from "./src/store/store";
 function App(): React.JSX.Element {
   return (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
       <SafeAreaView className={'flex-1 bg-gray-50'}>
        <Provider store={store}>
         <NavigationContainer>

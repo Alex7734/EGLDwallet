@@ -1,9 +1,12 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import { WalletRoutes } from "@wallet/navigation/routes/wallet-routes";
-import { MockScreen } from "@screens/mock-screen";
 import { InformationWallet } from "@wallet/screens/information-wallet";
+import { SendTransaction } from "@wallet/screens/send-transaction-wallet";
+import { SuccessTransaction } from "@wallet/screens/success-transaction-wallet";
 
 const Stack = createStackNavigator();
+
+// TODO: Weird TypeScript error here on component={SuccessTransaction}
 
 export const WalletNavigator = () => {
   return (
@@ -16,11 +19,11 @@ export const WalletNavigator = () => {
       <Stack.Screen name={WalletRoutes.Wallet} component={InformationWallet} />
       <Stack.Screen
         name={WalletRoutes.MakeTransaction}
-        component={MockScreen}
+        component={SendTransaction}
       />
       <Stack.Screen
         name={WalletRoutes.SuccessTransaction}
-        component={MockScreen}
+        component={SuccessTransaction}
       />
     </Stack.Navigator>
   );

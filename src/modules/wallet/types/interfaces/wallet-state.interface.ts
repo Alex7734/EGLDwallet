@@ -7,6 +7,7 @@ export interface WalletState {
   keys: WalletKeys;
   accountData: Account | null
   transactions: TransactionInfo[] | null;
+  latestTransactionData: ConfirmTransactionInfo;
   error: string | null | undefined | unknown;
   isLoading: boolean;
 }
@@ -14,4 +15,10 @@ export interface WalletState {
 export interface WalletKeys {
   secretKeyHex: string | null;
   publicKeyHex: string | null;
+}
+
+export interface ConfirmTransactionInfo {
+  amount: string | null;
+  receiverAddress: string | null;
+  txHash: string | null;
 }

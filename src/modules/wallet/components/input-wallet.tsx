@@ -5,10 +5,12 @@ import { isValidMnemonicFormat } from "@wallet/helpers/wallet.utils";
 import { setLoading, setMnemonics } from "@wallet/store/wallet.slice";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AppNavigatorParamList, AppNavigatorRoutes } from "@navigation/routes/app-navigator-routes";
-import { RootState } from "@store/store";
+import { AppDispatch, RootState } from "@store/store";
+
+// TODO: Use React Hook Form with zod to validate the mnemonic format and handle the submit / errors
 
 const InputWallet = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation<NavigationProp<AppNavigatorParamList>>();
   const isLoading = useSelector((state: RootState) => state.wallet.isLoading);
   const [words, setWords] = useState<string>('');
