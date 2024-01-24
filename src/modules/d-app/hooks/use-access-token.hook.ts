@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { NativeAuthClient } from "@multiversx/sdk-native-auth-client";
 import { TEST_PASSWORD } from "@constants/api.constants";
 import { useSelector } from "react-redux";

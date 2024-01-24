@@ -1,7 +1,7 @@
 import { DAppParamList, DAppRoutes } from "../routes/d-app-routes";
 import {createStackNavigator} from '@react-navigation/stack';
-import { WebviewDApp } from "../../screens/webview-d-app";
-import { LaunchDApp } from "../../screens/launch-d-app";
+import { WebviewDApp } from "@d-app/screens/webview-d-app";
+import { LaunchDApp } from "@d-app/screens/launch-d-app";
 
 const Stack = createStackNavigator<DAppParamList>();
 

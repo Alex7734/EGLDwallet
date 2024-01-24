@@ -1,6 +1,6 @@
 import {BottomTabRoutes} from '../routes/bottom-tab-routes';
 import {WalletNavigator} from "@wallet/navigation/navigators/wallet-navigator";
-import {DAppNavigator} from '../../modules/d-app/navigation/navigators/d-app-navigartor';
+import {DAppNavigator} from "@d-app/navigation/navigators/d-app-navigartor";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {

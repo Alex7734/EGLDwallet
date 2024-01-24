@@ -56,6 +56,7 @@ export function createTransactionFromHex(hexString: string) {
     })
   };
 }
+
 export const formatBalance = (balance: IAccountBalance | undefined) => {
   if (balance === undefined) return;
   const divisor = 10**18;

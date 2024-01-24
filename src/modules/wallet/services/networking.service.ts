@@ -4,6 +4,7 @@ import { TransactionPayloadType } from "@wallet/types/interfaces/transaction.int
 import { stringToIAddress } from "@wallet/helpers/wallet.utils";
 import { UserSigner } from "@multiversx/sdk-wallet/out";
 import { TokenTransfer, Transaction } from "@multiversx/sdk-core/out";
+import { signTransaction } from "@helpers/transaction.utils";
 
 export const apiNetworkProvider = new ApiNetworkProvider(BASE_API_URL);
 export const proxyNetworkProvider = new ProxyNetworkProvider(BASE_GATEWAY_URL);
@@ -11,7 +12,6 @@ export const proxyNetworkProvider = new ProxyNetworkProvider(BASE_GATEWAY_URL);
 export const makeTransaction = async ({ transactionData, accountData, userWallet }: TransactionPayloadType) => {
   const networkConfig = await apiNetworkProvider.getNetworkConfig();
   const senderAddress = stringToIAddress(accountData.address.toString());
-  const signer = UserSigner.fromWallet(userWallet.toJSON(), TEST_PASSWORD);
 
   const transaction = new Transaction({
     chainID: networkConfig.ChainID,
@@ -22,10 +22,7 @@ export const makeTransaction = async ({ transactionData, accountData, userWallet
     value: TokenTransfer.egldFromAmount(transactionData.amount),
   });
 
-  const serializedTransaction = transaction.serializeForSigning();
-  const transactionSignature = await signer.sign(serializedTransaction);
-  transaction.applySignature(transactionSignature);
-
+  await signTransaction(transaction, userWallet);
   const transactionHash = await proxyNetworkProvider.sendTransaction(transaction);
   return { data: transactionHash };
 }
