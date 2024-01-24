@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { walletAddressSelector } from "@wallet/store/selectors/wallet.selector";
 import { apiService, useFetchAccountDataQuery, useFetchAccountTransactionsQuery } from "@wallet/store/apis/api.service";

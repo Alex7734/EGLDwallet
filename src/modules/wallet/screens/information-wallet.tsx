@@ -44,8 +44,8 @@ export const InformationWallet = () => {
               </View>
           </View>
             : <ActivityIndicator color={'blue'} size={'large'} />}
-          <Text className={'text-center text-gray-400 text-lg font-semibold my-8'}>Last 10 transactions</Text>
-          <ScrollView className={'h-48'}>
+          <Text className={'text-center text-gray-400 text-lg font-semibold mt-6 mb-2'}>Last 10 transactions</Text>
+          <ScrollView className={'h-56'}>
             {!isFetchingTransactions ? transactions?.slice(0,10).map((transaction, index) =>
               <TransactionListItem key={index} transaction={transaction} index={index} />
             ) : <ActivityIndicator color={'blue'} size={'large'} />}
