@@ -4,6 +4,8 @@ export enum DAppRoutes {
 }
 
 export type DAppParamList = {
-  [DAppRoutes.Webview]: undefined;
+  [DAppRoutes.Webview]: {
+    accessToken: string;
+  };
   [DAppRoutes.LaunchWebview]: undefined;
 }
