@@ -24,7 +24,7 @@ const FormError = forwardRef<Text, TextProps & { error?: FieldError }>(
   ({ error, className, children, ...props }, ref) => {
     const body = error ? String(error?.message) : children;
 
-    if (!body) {
+    if (body == undefined) {
       return null;
     }
 

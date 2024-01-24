@@ -1,4 +1,14 @@
-export interface TransactionInfo {
+import { SendTransactionData } from "@wallet/schemas/wallet.schema";
+import { Account } from "@multiversx/sdk-core/out";
+import { UserWallet } from "@multiversx/sdk-wallet/out";
+
+export interface TransactionPayloadType {
+  transactionData: SendTransactionData,
+  accountData: Account,
+  userWallet: UserWallet,
+}
+
+export interface TransactionInfoType {
   txHash: string
   gasLimit: number
   gasPrice: number

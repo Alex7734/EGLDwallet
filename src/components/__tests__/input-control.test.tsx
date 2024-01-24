@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from "@testing-library/react-native";
 import { useForm } from 'react-hook-form';
-import { InputControl } from '@wallet/components/input-control';
+import { InputControl } from '@components/input-control';
 import { FieldValues, RegisterOptions } from "react-hook-form";
 
 type TestFormComponentProps = {

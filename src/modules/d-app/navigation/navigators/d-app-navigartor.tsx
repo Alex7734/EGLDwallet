@@ -1,10 +1,10 @@
-import { DAppRoutes } from '../routes/d-app-routes';
+import { DAppParamList, DAppRoutes } from "../routes/d-app-routes";
 import {createStackNavigator} from '@react-navigation/stack';
 import { MockScreen } from "@screens/mock-screen";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<DAppParamList>();
 
-export const WebviewNavigator = () => {
+export const DAppNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName={DAppRoutes.LaunchWebview}

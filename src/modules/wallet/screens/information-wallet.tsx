@@ -1,12 +1,11 @@
 import React from 'react';
-import { Pressable, Text, View, ScrollView, ActivityIndicator } from "react-native";
+import { Text, View, ScrollView, ActivityIndicator } from "react-native";
 import { formatBalance } from "@wallet/helpers/wallet.utils";
-import { useFetchAccountDataQuery, useFetchAccountTransactionsQuery } from "@wallet/services/wallet.service";
-import { useSelector } from "react-redux";
-import { RootState } from "@store/store";
 import { TransactionListItem } from "@wallet/components/transaction-list-item";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { WalletParamList, WalletRoutes } from "@wallet/navigation/routes/wallet-routes";
+import { Button } from "@components/button";
+import { useAccountInfo } from "@wallet/hooks/use-account-info.hook";
 
 const infoTextLabel = 'text-center text-gray-400 text-lg font-semibold';
 const infoTextValue = 'text-center text-gray-700 text-lg font-semibold';
@@ -14,9 +13,12 @@ const infoContainer = 'flex-col justify-center items-center self-center w-[80%]'
 
 export const InformationWallet = () => {
   const navigation = useNavigation<NavigationProp<WalletParamList>>();
-  const walletAddress = useSelector((state: RootState) => state.wallet.walletAddress);
-  const { data: accountData, isFetching: isFetchingAccountData } = useFetchAccountDataQuery(walletAddress);
-  const { data: transactions, isFetching: isFetchingTransactions } = useFetchAccountTransactionsQuery(walletAddress);
+  const {
+    accountData,
+    isFetchingAccountData,
+    transactions,
+    isFetchingTransactions,
+  } = useAccountInfo();
 
   const handleSendTransaction = () => {
     navigation.navigate(WalletRoutes.MakeTransaction)
@@ -37,9 +39,9 @@ export const InformationWallet = () => {
               <Text className={infoTextLabel}>Balance</Text>
               <Text className={infoTextValue}>{`${formatBalance(accountData?.balance)} XeGLD`}</Text>
             </View>
-            <Pressable className={'bg-blue-500 py-2 px-4 rounded-lg mx-12'} onPress={handleSendTransaction}>
-              <Text className={'text-white text-center text-md font-medium'}>Send Transaction</Text>
-            </Pressable>
+              <View className={'mx-12'} >
+                <Button onPress={handleSendTransaction} title={'Send Transaction'} />
+              </View>
           </View>
             : <ActivityIndicator color={'blue'} size={'large'} />}
           <Text className={'text-center text-gray-400 text-lg font-semibold my-8'}>Last 10 transactions</Text>

@@ -1,18 +1,23 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { WalletParamList, WalletRoutes } from "@wallet/navigation/routes/wallet-routes";
-import { Text, View, Linking, Pressable } from "react-native";
+import { Text, View, Linking } from "react-native";
 import { TESTNET_EXPLORER_URL } from "@constants/api.constants";
+import { Button } from "@components/button";
 
 export const SuccessTransaction = ({ navigation, route }: StackScreenProps<WalletParamList, WalletRoutes.SuccessTransaction>) => {
   const transactionInformation = route.params?.transactionInformation;
 
-  if (!transactionInformation) {
+  if (transactionInformation == undefined) {
     return <View><Text>No transaction information available.</Text></View>;
   }
 
   const handleExplorer = async () => {
     return await Linking.openURL(`${TESTNET_EXPLORER_URL}/transactions/${transactionInformation.txHash}`);
   };
+
+  const handleGoToWallet = () => {
+    navigation.navigate(WalletRoutes.Wallet);
+  }
 
   return (
     <View className={'flex-1 bg-gray-50'}>
@@ -28,9 +33,7 @@ export const SuccessTransaction = ({ navigation, route }: StackScreenProps<Walle
           <Text className={'text-md text-black font-medium self-center w-4/5'}>{transactionInformation.txHash}</Text>
         </View>
         <Text className={'text-md text-blue-500 font-medium underline'} onPress={handleExplorer}>View on explorer</Text>
-        <Pressable className={'bg-blue-500 py-2 px-4 rounded-lg'}>
-          <Text className={'text-md text-white font-medium'} onPress={() => navigation.navigate(WalletRoutes.Wallet)}>Go back to wallet</Text>
-        </Pressable>
+        <Button onPress={handleGoToWallet} title={'Go back to wallet'} />
       </View>
     </View>
   )
