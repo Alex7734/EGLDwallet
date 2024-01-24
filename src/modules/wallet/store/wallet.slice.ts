@@ -1,27 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getBlockchainKeys } from "@wallet/helpers/wallet.utils";
 import {
-  ConfirmTransactionInfo,
-  WalletState
+  ConfirmTransactionInfoType,
+  WalletStateType
 } from "@wallet/types/interfaces/wallet-state.interface";
-import { apiService } from "@wallet/services/wallet.service";
+import { apiService } from "@wallet/store/apis/api.service";
 
-// TODO: Ask the MultiversX team if the following alternative approach is better:
-// 1. When setMnemonics is dispatched, it should store the UserWallet object in the store.
-// 2. Remove the WalletKeys & Wallet Address interface from the WalletState interface. Derive them from the UserWallet object.
-// 3. Remove the getBlockchainKeys function from the wallet.utils.ts file.
-// 4. Should I use the ITransactionOnNetwork interface from the @multiversx/sdk-core or is it okay to use the TransactionInfo interface from the WalletState interface?
-// 5. Better way to handle the loading state of the wallet slice?
-
-const initialState: WalletState = {
-  walletAddress: '',
+const initialState: WalletStateType = {
   mnemonic: '',
-  keys: { secretKeyHex: null, publicKeyHex: null },
   transactions: [],
   latestTransactionData: {
     amount: null,
     receiverAddress: null,
     txHash: null,
+    didRefetch: false,
   },
   accountData: null,
   error: null,
@@ -32,19 +23,18 @@ const walletSlice = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
-    setMnemonics: (state, action: PayloadAction<string>) => {
-      const keys = getBlockchainKeys(action.payload);
+    setMnemonic: (state, action: PayloadAction<string>) => {
       state.mnemonic = action.payload;
-      state.walletAddress = keys.publicKey.toAddress().toString();
-      state.keys.publicKeyHex = keys.publicKey.hex();
-      state.keys.secretKeyHex = keys.secretKey.hex();
     },
-    setLatestTransactionData: (state, action: PayloadAction<ConfirmTransactionInfo>) => {
+    setLatestTransactionData: (state, action: PayloadAction<ConfirmTransactionInfoType>) => {
       state.latestTransactionData = {...action.payload};
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setLatestTransactionDidRefetch: (state, action: PayloadAction<boolean>) => {
+      state.latestTransactionData.didRefetch = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -63,5 +53,5 @@ const walletSlice = createSlice({
   },
 });
 
-export const { setMnemonics, setLatestTransactionData, setLoading } = walletSlice.actions;
+export const { setMnemonic, setLatestTransactionData, setLoading, setLatestTransactionDidRefetch } = walletSlice.actions;
 export default walletSlice.reducer;

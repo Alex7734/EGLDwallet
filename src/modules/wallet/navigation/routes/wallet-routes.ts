@@ -1,4 +1,4 @@
-import { ConfirmTransactionInfo } from "@wallet/types/interfaces/wallet-state.interface";
+import { ConfirmTransactionInfoType } from "@wallet/types/interfaces/wallet-state.interface";
 
 export enum WalletRoutes {
   Wallet = 'Wallet Information',
@@ -10,6 +10,6 @@ export type WalletParamList = {
   [WalletRoutes.Wallet]: undefined;
   [WalletRoutes.MakeTransaction]: undefined;
   [WalletRoutes.SuccessTransaction]: {
-    transactionInformation: ConfirmTransactionInfo
+    transactionInformation: ConfirmTransactionInfoType
   };
 }

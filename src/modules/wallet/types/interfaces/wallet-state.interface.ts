@@ -1,24 +1,18 @@
 import { Account } from "@multiversx/sdk-core/out";
-import { TransactionInfo } from "@wallet/types/interfaces/transaction.interface";
+import { TransactionInfoType } from "@wallet/types/interfaces/transaction.interface";
 
-export interface WalletState {
-  walletAddress: string;
+export interface WalletStateType {
   mnemonic: string;
-  keys: WalletKeys;
   accountData: Account | null
-  transactions: TransactionInfo[] | null;
-  latestTransactionData: ConfirmTransactionInfo;
-  error: string | null | undefined | unknown;
+  transactions: TransactionInfoType[] | null;
+  latestTransactionData: ConfirmTransactionInfoType;
+  error: unknown;
   isLoading: boolean;
 }
 
-export interface WalletKeys {
-  secretKeyHex: string | null;
-  publicKeyHex: string | null;
-}
-
-export interface ConfirmTransactionInfo {
+export interface ConfirmTransactionInfoType {
   amount: string | null;
   receiverAddress: string | null;
   txHash: string | null;
+  didRefetch: boolean;
 }
