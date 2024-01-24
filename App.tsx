@@ -3,7 +3,8 @@ import { SafeAreaView, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppNavigator } from "@navigation/navigators/app-navigator";
 import { Provider } from "react-redux";
-import store from "./src/store/store";
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from "./src/store/store";
 
 function App(): React.JSX.Element {
   return (
@@ -11,9 +12,11 @@ function App(): React.JSX.Element {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView className={'flex-1 bg-gray-50'}>
        <Provider store={store}>
-        <NavigationContainer>
-          <AppNavigator />
-        </NavigationContainer>
+         <PersistGate loading={null} persistor={persistor}>
+           <NavigationContainer>
+            <AppNavigator />
+          </NavigationContainer>
+         </PersistGate>
        </Provider>
       </SafeAreaView>
     </>

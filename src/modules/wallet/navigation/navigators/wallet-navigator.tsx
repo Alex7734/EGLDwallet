@@ -1,12 +1,10 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import { WalletRoutes } from "@wallet/navigation/routes/wallet-routes";
+import { WalletParamList, WalletRoutes } from "@wallet/navigation/routes/wallet-routes";
 import { InformationWallet } from "@wallet/screens/information-wallet";
 import { SendTransaction } from "@wallet/screens/send-transaction-wallet";
 import { SuccessTransaction } from "@wallet/screens/success-transaction-wallet";
 
-const Stack = createStackNavigator();
-
-// TODO: Weird TypeScript error here on component={SuccessTransaction}
+const Stack = createStackNavigator<WalletParamList>();
 
 export const WalletNavigator = () => {
   return (

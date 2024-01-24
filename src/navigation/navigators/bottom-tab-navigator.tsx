@@ -1,6 +1,6 @@
 import {BottomTabRoutes} from '../routes/bottom-tab-routes';
 import {WalletNavigator} from "@wallet/navigation/navigators/wallet-navigator";
-import {WebviewNavigator} from '../../modules/d-app/navigation/navigators/d-app-navigartor';
+import {DAppNavigator} from "@d-app/navigation/navigators/d-app-navigartor";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {
@@ -20,7 +20,7 @@ export const BottomTabNavigator = () => {
         tabBarStyle: bottomTabNavigatorStyle.bottomTab,
       }}>
       <Tab.Screen name={BottomTabRoutes.Wallet} component={WalletNavigator} />
-      <Tab.Screen name={BottomTabRoutes.Webview} component={WebviewNavigator} />
+      <Tab.Screen name={BottomTabRoutes.Webview} component={DAppNavigator} />
     </Tab.Navigator>
   );
 };

@@ -19,6 +19,7 @@ module.exports = {
           '@hooks': './src/hooks',
           '@utils': './src/utils',
           '@wallet': './src/modules/wallet',
+          '@d-app': './src/modules/d-app',
         },
       },
     ],

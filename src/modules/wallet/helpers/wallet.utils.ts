@@ -1,6 +1,6 @@
 import {Mnemonic} from "@multiversx/sdk-wallet";
 import { IAccountBalance, IAddress } from "@multiversx/sdk-core/out";
-import { UserSecretKey } from "@multiversx/sdk-wallet/out";
+import { UserPublicKey, UserSecretKey } from "@multiversx/sdk-wallet/out";
 
 export function getBlockchainKeys(userInputMnemonic: string) {
   const mnemonic = Mnemonic.fromString(userInputMnemonic);
@@ -38,9 +38,22 @@ export function getSecretKeyFromHex(hexString: string) {
   return new UserSecretKey(uint8Array);
 }
 
+export function getPublicKeyFromHex(hexString: string) {
+  const uint8Array = hexToUint8Array(hexString);
+  return new UserPublicKey(uint8Array);
+}
+
 export function stringToIAddress(addressString: string): IAddress {
   return {
     bech32: () => addressString
+  };
+}
+
+export function createTransactionFromHex(hexString: string) {
+  return {
+    getHash: () => ({
+      hex: () => hexString
+    })
   };
 }
 
@@ -56,6 +69,7 @@ export const isValidMnemonicFormat = (mnemonic: string) => {
     Mnemonic.fromString(mnemonic);
     return true;
   } catch (error) {
+    console.log(error);
     return false;
   }
 }

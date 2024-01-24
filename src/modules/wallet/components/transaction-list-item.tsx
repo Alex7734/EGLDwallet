@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 import React from "react";
-import { TransactionInfo } from "@wallet/types/interfaces/transaction.interface";
+import { TransactionInfoType } from "@wallet/types/interfaces/transaction.interface";
 
 export const TransactionListItem = ({transaction, index}: {
-  transaction: TransactionInfo,
+  transaction: TransactionInfoType,
   index: number
 }) => {
   return (
